@@ -7,11 +7,19 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Animator _animator;
+    private BoxCollider2D collider;
+    private SpriteRenderer renderer;
+    [SerializeField] private Sprite[] sprites; 
 
     private const string _horizontal = "Horizontal";
     private const string _vertical = "Vertical";
     private const string _lastHorizontal = "LastHorizontal";
     private const string _lastVertical = "LastVertical";
+
+    private readonly Vector2 colliderSizeHorizontal = new Vector2(3.7462f, 1.2828f);
+    private readonly Vector2 colliderSizeVertical = new Vector2(1.8523f, 2.5828f);
+    private readonly Vector2 colliderOffsetHorizontal = new Vector2(0.2165f, -0.9760f);
+    private readonly Vector2 colliderOffsetVertical = new Vector2(0.0119f, -0.5760f);
 
     public Vector2 moveDirection;
     public float moveSpeed;
@@ -21,6 +29,8 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        collider = GetComponent<BoxCollider2D>();
+        renderer = GetComponent<SpriteRenderer>();
     }
     void Start()
     {
@@ -31,6 +41,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         ProcessInputs();
+        ProcessCollider();
         handleMove();
         _animator.SetFloat(_horizontal, moveDirection.x);
         _animator.SetFloat(_vertical, moveDirection.y);
@@ -40,7 +51,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log(moveDirection);
             _animator.SetFloat(_lastHorizontal, moveDirection.x);
             _animator.SetFloat(_lastVertical, moveDirection.y);
-        }
+        } 
 
     }
 
@@ -50,6 +61,16 @@ public class PlayerController : MonoBehaviour
         float verticalInput = Input.GetKey(KeyCode.W) ? 1f : Input.GetKey(KeyCode.S) ? -1f : 0f;
 
         moveDirection = new Vector2(horizontalInput, verticalInput).normalized;
+    }
+
+    void ProcessCollider() {
+        if (renderer.sprite == sprites[0] || renderer.sprite == sprites[1]) {
+            collider.size = colliderSizeVertical;
+            collider.offset = colliderOffsetVertical;
+        } else {
+            collider.size = colliderSizeHorizontal;
+            collider.offset = colliderOffsetHorizontal;
+        }
     }
 
     void handleMove()
