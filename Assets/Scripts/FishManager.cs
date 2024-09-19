@@ -32,11 +32,13 @@ public static class FishManager
         foreach (var line in splitData)
         { //Loop through the array we made of each line
             var lineData = line.Split(','); //Split each line up at the comma
+            Console.WriteLine("line", lineData);
             if (lineData[0] != "Fish Name")
             { //Fish Name is contained on the first row, so we ignore that
-                var newFish = new FishSpecies(lineData[0], lineData[1], (Rarity)line[2], Int32.Parse(lineData[3]), float.Parse(lineData[4]), float.Parse(lineData[5]));
+                Console.WriteLine("line", lineData);
+                //var newFish = new FishSpecies(lineData[0], lineData[1], (Rarity)line[2], Int32.Parse(lineData[3]), float.Parse(lineData[4]), float.Parse(lineData[5]));
 
-                fishSpeciesByRarity[newFish.rarity].Add(newFish);
+                // fishSpeciesByRarity[newFish.rarity].Add(newFish);
             }
         }
     }
