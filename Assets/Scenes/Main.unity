@@ -85309,6 +85309,14 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 3558986924160601280, guid: 3851ab349fb8e7e4e89e695bfb23786b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 3558986924160601280, guid: 3851ab349fb8e7e4e89e695bfb23786b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 3558986924160601280, guid: 3851ab349fb8e7e4e89e695bfb23786b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.88
       objectReference: {fileID: 0}
@@ -85444,6 +85452,10 @@ PrefabInstance:
     - target: {fileID: 5544346266757496187, guid: c588c494b8e106f43b09106d120077fe, type: 3}
       propertyPath: m_Name
       value: Canvas Screen
+      objectReference: {fileID: 0}
+    - target: {fileID: 6156395838584182896, guid: c588c494b8e106f43b09106d120077fe, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

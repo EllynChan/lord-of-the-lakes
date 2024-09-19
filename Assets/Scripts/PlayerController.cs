@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     private Animator _animator;
     private BoxCollider2D collider;
     private SpriteRenderer renderer;
+    private StateManager stateManager;
+    
     [SerializeField] private Sprite[] sprites; 
 
     private const string _horizontal = "Horizontal";
@@ -63,7 +65,7 @@ public class PlayerController : MonoBehaviour
     {
         float horizontalInput = Input.GetKey(KeyCode.D) ? 1f : Input.GetKey(KeyCode.A) ? -1f : 0f;
         float verticalInput = Input.GetKey(KeyCode.W) ? 1f : Input.GetKey(KeyCode.S) ? -1f : 0f;
-
+        
         moveDirection = new Vector2(horizontalInput, verticalInput).normalized;
     }
 
