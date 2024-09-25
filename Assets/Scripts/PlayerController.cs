@@ -54,11 +54,7 @@ public class PlayerController : MonoBehaviour
             _animator.SetFloat(_lastHorizontal, moveDirection.x);
             _animator.SetFloat(_lastVertical, moveDirection.y);
         } 
-        else
-        {
-            _animator.SetFloat(_horizontal, _animator.GetFloat(_lastHorizontal));
-            _animator.SetFloat(_vertical, _animator.GetFloat(_lastVertical));
-        }
+
     }
 
     void ProcessInputs()

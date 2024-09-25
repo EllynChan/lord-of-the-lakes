@@ -1,0 +1,8 @@
+Fish Name,SpriteID,Rarity,Base Cost,Weight Mean, Weight Std
+Cracker fish,cracker_fish,common,2,0.5,0.1
+Carp,carp,common,100,2,0.5
+Cucumber fish,cucumber_fish,uncommon,5,3.5,0.3
+Sharpie fish,sharpie_fish,uncommon,13,2.3,0.5
+Sweet potato fish,sweet_potato_fish,rare,13,2.3,0.5
+Hammer fish,hammer_fish,epic,5,3,0.4
+Chinook,chinook,legendary,100,2.5,0.7
