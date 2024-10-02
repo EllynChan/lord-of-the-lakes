@@ -41,7 +41,8 @@ public class PlayerFishState : PlayerState
             player.Animator.SetBool("IsFishing", false);
             if (fishHooked)
             {
-                Debug.Log("fish caught");
+                Fish fish = FishManager.GetRandomFish(Rarity.common).Item1;
+                Debug.Log(fish.name);
                 player.Animator.SetBool("FishCaught", true);
                 this.startTime = Time.time;
                 
