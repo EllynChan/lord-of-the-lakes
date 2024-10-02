@@ -24,9 +24,9 @@ public class FishSpecies
 
 public enum Rarity
 {
-    Common,
-    Uncommon,
-    Rare,
-    Epic,
-    Legendary
+    common,
+    uncommon,
+    rare,
+    epic,
+    legendary
 }

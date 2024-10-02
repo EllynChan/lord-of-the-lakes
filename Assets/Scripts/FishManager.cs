@@ -31,14 +31,16 @@ public static class FishManager
         var splitData = textAsset.text.Split('\n');
         foreach (var line in splitData)
         { //Loop through the array we made of each line
-            var lineData = line.Split(','); //Split each line up at the comma
-            Console.WriteLine("line", lineData);
-            if (lineData[0] != "Fish Name")
-            { //Fish Name is contained on the first row, so we ignore that
-                Console.WriteLine("line", lineData);
-                //var newFish = new FishSpecies(lineData[0], lineData[1], (Rarity)line[2], Int32.Parse(lineData[3]), float.Parse(lineData[4]), float.Parse(lineData[5]));
+            if (line.Length > 0)
+            {
+                var lineData = line.Split(','); //Split each line up at the comma
+                if (lineData[0] != "Fish Name")
+                { //Fish Name is contained on the first row, so we ignore that
+                    Enum.TryParse(lineData[2], out Rarity rarity);
+                    var newFish = new FishSpecies(lineData[0], lineData[1], rarity, Int32.Parse(lineData[3]), float.Parse(lineData[4]), float.Parse(lineData[5]));
 
-                // fishSpeciesByRarity[newFish.rarity].Add(newFish);
+                    fishSpeciesByRarity[newFish.rarity].Add(newFish);
+                }
             }
         }
     }
