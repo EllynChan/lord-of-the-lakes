@@ -5,7 +5,7 @@ using UnityEngine;
 public class Fish
 {
     public string name;
-    public string speciesId;
+    public string speciesId; // this is also their sprite_id
     public Rarity rarity;
     public float weight;
     public int cost;

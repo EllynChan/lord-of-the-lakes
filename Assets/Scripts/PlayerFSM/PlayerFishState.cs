@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class PlayerFishState : PlayerState
@@ -36,6 +39,7 @@ public class PlayerFishState : PlayerState
     {
         player.Animator.SetBool("FishCaught", false);
         player.Animator.SetBool("IsFishing", false);
+        player.fishCaughtPanel.SetActive(false);
         player.exclamationMark.transform.position = exclamationLeftPos; // reset to original position, left is default
         base.Exit();
     }
@@ -86,8 +90,13 @@ public class PlayerFishState : PlayerState
             if (nibble)
             {
                 Fish fish = FishManager.GetRandomFish(Rarity.common).Item1;
+                var tempSprite = Resources.Load<Sprite>($"FishSprites/{fish.speciesId}");
+                player.fishCaughtImage.GetComponent<UnityEngine.UI.Image>().sprite = tempSprite;
+                player.fishCaughtNameText.GetComponent<TMP_Text>().text = fish.name;
+                
                 Debug.Log(fish.name);
                 player.Animator.SetBool("FishCaught", true);
+                
                 this.startTime = Time.time;
                 
             } else
@@ -98,10 +107,15 @@ public class PlayerFishState : PlayerState
 
         // show off the fish that was just caught (the FishCaught boolean is still true so its still in the caught state)
         // Debug.Log(player.Animator.GetBool("FishCaught"));
-        if (player.Animator.GetBool("FishCaught") && Time.time >= (this.startTime + 1.5f))
+        if (player.Animator.GetBool("FishCaught"))
         {
-            player.Animator.SetBool("FishCaught", false);
-            stateMachine.ChangeState(player.BoatState);
+            player.fishCaughtPanel.SetActive(true);
+            if (Time.time >= (this.startTime + 1.5f))
+            {
+                player.Animator.SetBool("FishCaught", false);
+                stateMachine.ChangeState(player.BoatState);
+            }
+            
         }
 
     }
