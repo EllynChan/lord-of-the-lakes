@@ -10,7 +10,8 @@ public class PlayerFishState : PlayerState
     float nibbleTimer;
     float nibbleWaitTime;
     float catchTimer;
-    float maxWaitTime = 6f; // can change this if we want it to be longer
+    readonly float maxWaitTime = 6f; // can change this if we want it to be longer
+    readonly float shinySpotMaxWaitTime = 3f;
 
     Vector3 exclamationLeftPos;
 
@@ -20,13 +21,16 @@ public class PlayerFishState : PlayerState
 
     public override void Enter()
     {
-        
+
         base.Enter();
         nibble = false;
         Debug.Log("fishing now");
         player.Animator.SetBool("IsFishing", true);
         nibbleTimer = Time.time;
-        nibbleWaitTime = Time.time + Random.Range(maxWaitTime * 0.25f, maxWaitTime);
+
+        float playerMaxWaitTime = player.isOnShinySpot ? shinySpotMaxWaitTime : maxWaitTime;
+        nibbleWaitTime = Time.time + Random.Range(playerMaxWaitTime * 0.25f, playerMaxWaitTime);
+
         catchTimer = Time.time;
         exclamationLeftPos = player.exclamationMark.transform.position;
         Debug.Log(nibbleWaitTime);
@@ -56,10 +60,12 @@ public class PlayerFishState : PlayerState
             if (playerSprite.Contains("right"))
             {
                 player.exclamationMark.transform.position = new Vector3(exclamationLeftPos.x + 0.8f, exclamationLeftPos.y, 0);
-            } else if (playerSprite.Contains("up"))
+            }
+            else if (playerSprite.Contains("up"))
             {
                 player.exclamationMark.transform.position = new Vector3(exclamationLeftPos.x + 0.3f, exclamationLeftPos.y + 0.4f, 0);
-            } else if (playerSprite.Contains("down"))
+            }
+            else if (playerSprite.Contains("down"))
             {
                 player.exclamationMark.transform.position = new Vector3(exclamationLeftPos.x + 0.3f, exclamationLeftPos.y, 0);
             }
@@ -68,7 +74,6 @@ public class PlayerFishState : PlayerState
         {
             catchTimer += Time.deltaTime; // timer starts when nibble happens, if player is too slow the fish gets away
         }
-        
         // if player takes too long to catch fish, the fish gets away
         if (nibble & catchTimer > this.startTime + 2f)
         {
@@ -81,7 +86,7 @@ public class PlayerFishState : PlayerState
         if (Input.GetKeyDown(KeyCode.F))
         {
             player.Animator.SetBool("IsFishing", false);
-            
+
             player.exclamationMark.SetActive(false);
             if (nibble)
             {
@@ -89,8 +94,9 @@ public class PlayerFishState : PlayerState
                 Debug.Log(fish.name);
                 player.Animator.SetBool("FishCaught", true);
                 this.startTime = Time.time;
-                
-            } else
+                // player.getCoord
+            }
+            else
             {
                 stateMachine.ChangeState(player.BoatState);
             }
