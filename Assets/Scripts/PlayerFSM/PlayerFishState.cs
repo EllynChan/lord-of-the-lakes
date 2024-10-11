@@ -96,7 +96,7 @@ public class PlayerFishState : PlayerState
                 
                 Debug.Log(fish.name);
                 player.Animator.SetBool("FishCaught", true);
-                
+
                 this.startTime = Time.time;
                 
             } else
@@ -104,18 +104,16 @@ public class PlayerFishState : PlayerState
                 stateMachine.ChangeState(player.BoatState);
             }
         }
-
-        // show off the fish that was just caught (the FishCaught boolean is still true so its still in the caught state)
-        // Debug.Log(player.Animator.GetBool("FishCaught"));
-        if (player.Animator.GetBool("FishCaught"))
+        if (player.Animator.GetCurrentAnimatorStateInfo(0).IsName("Catch"))
         {
             player.fishCaughtPanel.SetActive(true);
-            if (Time.time >= (this.startTime + 1.5f))
-            {
-                player.Animator.SetBool("FishCaught", false);
-                stateMachine.ChangeState(player.BoatState);
-            }
-            
+        }
+        // show off the fish that was just caught (the FishCaught boolean is still true so its still in the caught state)
+        // Debug.Log(player.Animator.GetBool("FishCaught"));
+        if (player.Animator.GetBool("FishCaught") && Time.time >= (this.startTime + 1.5f))
+        {
+            player.Animator.SetBool("FishCaught", false);
+            stateMachine.ChangeState(player.BoatState);
         }
 
     }
