@@ -10,6 +10,10 @@ public class Player : MonoBehaviour
     public PlayerFishState FishState { get; private set; }
 
     public Animator Animator {  get; private set; }
+    [SerializeField] public GameObject exclamationMark; 
+    [SerializeField] public GameObject fishCaughtPanel;
+    [SerializeField] public GameObject fishCaughtImage;
+    [SerializeField] public GameObject fishCaughtNameText;
 
     public Rigidbody2D rb;
     public BoxCollider2D collider;
@@ -25,6 +29,8 @@ public class Player : MonoBehaviour
     public readonly Vector2 colliderSizeVertical = new Vector2(1.8523f, 2.5828f);
     public readonly Vector2 colliderOffsetHorizontal = new Vector2(0.2165f, -0.9760f);
     public readonly Vector2 colliderOffsetVertical = new Vector2(0.0119f, -0.5760f);
+
+    public bool isOnShinySpot = false;
 
     public Vector2 moveDirection;
     public float moveSpeed;
@@ -53,5 +59,20 @@ public class Player : MonoBehaviour
     private void Update()
     {
         StateMachine.CurrentState.Update();
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        Debug.Log("Player collided with " + col.name);
+        if (col.name == "ShinySpot") {
+            isOnShinySpot = true;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.name == "ShinySpot") {
+            isOnShinySpot = false;
+        }
     }
 }
