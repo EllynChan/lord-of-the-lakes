@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81474a07c20dd4ec389c284bebbfe27c, type: 3}
   m_Name: Curse
   m_EditorClassIdentifier: 
-  skill_name: 
-  skill_description: 
+  skill_name: Curse
+  skill_description: Forbidden art that brings down misfortune. Deals damage, debuffs
+    enemy ATK, DEF, SPD for 3 rounds
   skill_type: 0
   effect_type: 0
-  effect_num_rounds: 0
-  skill_scale: 0
-  effect_scale: 0
+  effect_num_rounds: 3
+  skill_scale: 0.6
+  effect_scale: 0.9
   probability: 0

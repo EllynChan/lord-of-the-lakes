@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 81474a07c20dd4ec389c284bebbfe27c, type: 3}
-  m_Name: Distract
+  m_Name: ShellCollide
   m_EditorClassIdentifier: 
-  skill_name: 
-  skill_description: 
+  skill_name: Shell Collide
+  skill_description: Turtle bumps the rod with its shell
   skill_type: 0
   effect_type: 0
   effect_num_rounds: 0
-  skill_scale: 0
+  skill_scale: 1.5
   effect_scale: 0
-  probability: 0
+  probability: 0.25
