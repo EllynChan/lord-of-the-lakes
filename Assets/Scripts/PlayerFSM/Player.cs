@@ -10,7 +10,10 @@ public class Player : MonoBehaviour
     public PlayerFishState FishState { get; private set; }
 
     public Animator Animator {  get; private set; }
-    [SerializeField] public GameObject exclamationMark;
+    [SerializeField] public GameObject exclamationMark; 
+    [SerializeField] public GameObject fishCaughtPanel;
+    [SerializeField] public GameObject fishCaughtImage;
+    [SerializeField] public GameObject fishCaughtNameText;
 
     public Rigidbody2D rb;
     public BoxCollider2D collider;

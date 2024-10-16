@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class PlayerFishState : PlayerState
@@ -14,6 +17,7 @@ public class PlayerFishState : PlayerState
     readonly float shinySpotMaxWaitTime = 3f;
 
     Vector3 exclamationLeftPos;
+    Vector3 fishCaughtPanelLeftPos;
 
     public PlayerFishState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine)
     {
@@ -33,6 +37,7 @@ public class PlayerFishState : PlayerState
 
         catchTimer = Time.time;
         exclamationLeftPos = player.exclamationMark.transform.position;
+        fishCaughtPanelLeftPos = player.fishCaughtPanel.transform.position;
         Debug.Log(nibbleWaitTime);
     }
 
@@ -40,7 +45,9 @@ public class PlayerFishState : PlayerState
     {
         player.Animator.SetBool("FishCaught", false);
         player.Animator.SetBool("IsFishing", false);
+        player.fishCaughtPanel.SetActive(false);
         player.exclamationMark.transform.position = exclamationLeftPos; // reset to original position, left is default
+        player.fishCaughtPanel.transform.position = fishCaughtPanelLeftPos;
         base.Exit();
     }
 
@@ -49,6 +56,7 @@ public class PlayerFishState : PlayerState
         // TODO: bug somethign is wrong with the catch timer (sometimes it triggers without nibble happening first)
         // Timer set ups
         nibbleTimer += Time.deltaTime; // timer for waiting when a fish will be on the line
+        // indicates a fish is on the line, exclamation mark shows up
         if (nibbleTimer >= nibbleWaitTime && !nibble)
         {
             nibble = true;
@@ -91,8 +99,13 @@ public class PlayerFishState : PlayerState
             if (nibble)
             {
                 Fish fish = FishManager.GetRandomFish(Rarity.common).Item1;
+                var tempSprite = Resources.Load<Sprite>($"FishSprites/{fish.speciesId}");
+                player.fishCaughtImage.GetComponent<UnityEngine.UI.Image>().sprite = tempSprite;
+                player.fishCaughtNameText.GetComponent<TMP_Text>().text = fish.name;
+                
                 Debug.Log(fish.name);
                 player.Animator.SetBool("FishCaught", true);
+
                 this.startTime = Time.time;
                 // player.getCoord
             }
@@ -101,15 +114,31 @@ public class PlayerFishState : PlayerState
                 stateMachine.ChangeState(player.BoatState);
             }
         }
-
+        if (player.Animator.GetCurrentAnimatorStateInfo(0).IsName("Catch"))
+        {
+            string playerSprite = player.GetComponent<SpriteRenderer>().sprite.name;
+            if (playerSprite.Contains("right"))
+            {
+                player.fishCaughtPanel.transform.position = new Vector3(fishCaughtPanelLeftPos.x + 0.8f, fishCaughtPanelLeftPos.y, 0);
+            }
+            else if (playerSprite.Contains("up"))
+            {
+                player.fishCaughtPanel.transform.position = new Vector3(fishCaughtPanelLeftPos.x + 0.3f, fishCaughtPanelLeftPos.y + 0.4f, 0);
+            }
+            else if (playerSprite.Contains("down"))
+            {
+                player.fishCaughtPanel.transform.position = new Vector3(fishCaughtPanelLeftPos.x + 0.3f, fishCaughtPanelLeftPos.y, 0);
+            }
+            player.fishCaughtPanel.SetActive(true);
+        }
         // show off the fish that was just caught (the FishCaught boolean is still true so its still in the caught state)
         // Debug.Log(player.Animator.GetBool("FishCaught"));
         if (player.Animator.GetBool("FishCaught") && Time.time >= (this.startTime + 1.5f))
         {
             player.Animator.SetBool("FishCaught", false);
+            player.fishCaughtPanel.SetActive(false);
             stateMachine.ChangeState(player.BoatState);
         }
 
     }
-
 }
