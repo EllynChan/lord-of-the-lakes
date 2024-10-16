@@ -85560,6 +85560,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6316887761556737294, guid: c588c494b8e106f43b09106d120077fe, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -194.15645
+      objectReference: {fileID: 0}
+    - target: {fileID: 6316887761556737294, guid: c588c494b8e106f43b09106d120077fe, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 37.999977
+      objectReference: {fileID: 0}
     - target: {fileID: 7146353212294119672, guid: c588c494b8e106f43b09106d120077fe, type: 3}
       propertyPath: m_IsActive
       value: 0
