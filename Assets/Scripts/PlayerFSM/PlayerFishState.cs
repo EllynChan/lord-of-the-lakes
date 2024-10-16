@@ -16,6 +16,7 @@ public class PlayerFishState : PlayerState
     float maxWaitTime = 6f; // can change this if we want it to be longer
 
     Vector3 exclamationLeftPos;
+    Vector3 fishCaughtPanelLeftPos;
 
     public PlayerFishState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine)
     {
@@ -32,6 +33,7 @@ public class PlayerFishState : PlayerState
         nibbleWaitTime = Time.time + Random.Range(maxWaitTime * 0.25f, maxWaitTime);
         catchTimer = Time.time;
         exclamationLeftPos = player.exclamationMark.transform.position;
+        fishCaughtPanelLeftPos = player.fishCaughtPanel.transform.position;
         Debug.Log(nibbleWaitTime);
     }
 
@@ -41,6 +43,7 @@ public class PlayerFishState : PlayerState
         player.Animator.SetBool("IsFishing", false);
         player.fishCaughtPanel.SetActive(false);
         player.exclamationMark.transform.position = exclamationLeftPos; // reset to original position, left is default
+        player.fishCaughtPanel.transform.position = fishCaughtPanelLeftPos;
         base.Exit();
     }
 
@@ -49,6 +52,7 @@ public class PlayerFishState : PlayerState
         // TODO: bug somethign is wrong with the catch timer (sometimes it triggers without nibble happening first)
         // Timer set ups
         nibbleTimer += Time.deltaTime; // timer for waiting when a fish will be on the line
+        // indicates a fish is on the line, exclamation mark shows up
         if (nibbleTimer >= nibbleWaitTime && !nibble)
         {
             nibble = true;
@@ -106,6 +110,19 @@ public class PlayerFishState : PlayerState
         }
         if (player.Animator.GetCurrentAnimatorStateInfo(0).IsName("Catch"))
         {
+            string playerSprite = player.GetComponent<SpriteRenderer>().sprite.name;
+            if (playerSprite.Contains("right"))
+            {
+                player.fishCaughtPanel.transform.position = new Vector3(fishCaughtPanelLeftPos.x + 0.8f, fishCaughtPanelLeftPos.y, 0);
+            }
+            else if (playerSprite.Contains("up"))
+            {
+                player.fishCaughtPanel.transform.position = new Vector3(fishCaughtPanelLeftPos.x + 0.3f, fishCaughtPanelLeftPos.y + 0.4f, 0);
+            }
+            else if (playerSprite.Contains("down"))
+            {
+                player.fishCaughtPanel.transform.position = new Vector3(fishCaughtPanelLeftPos.x + 0.3f, fishCaughtPanelLeftPos.y, 0);
+            }
             player.fishCaughtPanel.SetActive(true);
         }
         // show off the fish that was just caught (the FishCaught boolean is still true so its still in the caught state)
@@ -113,9 +130,9 @@ public class PlayerFishState : PlayerState
         if (player.Animator.GetBool("FishCaught") && Time.time >= (this.startTime + 1.5f))
         {
             player.Animator.SetBool("FishCaught", false);
+            player.fishCaughtPanel.SetActive(false);
             stateMachine.ChangeState(player.BoatState);
         }
 
     }
-
 }
