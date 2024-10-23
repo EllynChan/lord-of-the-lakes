@@ -8,11 +8,23 @@ using UnityEngine.UIElements;
 
 public class PlayerFishState : PlayerState
 {
+    //types of minigames
+    private GameObject fishMinigameChase;
+    private GameObject fishMinigameMash;
+    private GameObject fishMinigameRhythm;
+    private GameObject fishMinigameHold;
+
+    private Rigidbody2D catchingBarRB;
+    private GameObject fishMinigameCanvas;
+    private GameObject fishIcon;
+    private GameObject catchingBar;
+
+    UnityEngine.UI.Slider catchProgressBar; 
     // just setting this bool to true for now to test the animation
     bool nibble = false;
-    float nibbleTimer;
-    float nibbleWaitTime;
-    float catchTimer;
+    float nibbleTimer; // timer it takes to get a fish nibble
+    float nibbleWaitTime; // Set time it takes to get a fish nibble calculated when entering this state; nibbleTimer ticks up until it reaches this time
+    float catchTimer; // timer for how long player can wait to reach and catch the fish
     float maxWaitTime = 6f; // can change this if we want it to be longer
 
     Vector3 exclamationLeftPos;
@@ -35,6 +47,13 @@ public class PlayerFishState : PlayerState
         exclamationLeftPos = player.exclamationMark.transform.position;
         fishCaughtPanelLeftPos = player.fishCaughtPanel.transform.position;
         Debug.Log(nibbleWaitTime);
+
+        fishMinigameChase = GameObject.Find("/Player/PlayerCanvas/FishMinigame_Chase");
+        fishMinigameMash = GameObject.Find("FishMinigame_Mash");
+        fishMinigameRhythm = GameObject.Find("FishMinigame_Rhythm");
+        fishMinigameHold = GameObject.Find("FishMinigame_HoldRelease");
+        Debug.Log(fishMinigameChase);
+
     }
 
     public override void Exit()
@@ -93,6 +112,16 @@ public class PlayerFishState : PlayerState
             player.exclamationMark.SetActive(false);
             if (nibble)
             {
+
+                GameObject fishMinigameCanvas = fishMinigameChase.gameObject;
+                //GameObject fishIcon = GameObject.Find("FishMinigame_Chase/WaterBar/FishIcon");
+               // GameObject catchingBar = GameObject.Find("FishMinigame_Chase/WaterBar/CatchingBar");
+
+                //UnityEngine.UI.Slider catchProgressBar = GameObject.Find("FishMinigame_Chase/CatchingProgressBar").GetComponent<UnityEngine.UI.Slider>(); //The bar on the right that shows how much you have caught
+                
+               // catchingBarRB = catchingBar.GetComponent<Rigidbody2D>(); //Get reference to the Rigidbody on the catchingbar
+                fishMinigameCanvas.SetActive(true);
+
                 Fish fish = FishManager.GetRandomFish(Rarity.common).Item1;
                 var tempSprite = Resources.Load<Sprite>($"FishSprites/{fish.speciesId}");
                 player.fishCaughtImage.GetComponent<UnityEngine.UI.Image>().sprite = tempSprite;

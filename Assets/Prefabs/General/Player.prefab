@@ -53,7 +53,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &27465752680629784
 RectTransform:
   m_ObjectHideFlags: 0
@@ -72,8 +72,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -240, y: 138}
-  m_SizeDelta: {x: 100, y: 352.42}
+  m_AnchoredPosition: {x: -148.66, y: 115}
+  m_SizeDelta: {x: 68.68, y: 190.46}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2797101150302537980
 CanvasRenderer:
@@ -497,7 +497,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5031118845160974874
 RectTransform:
   m_ObjectHideFlags: 0
@@ -799,7 +799,7 @@ RectTransform:
   m_Father: {fileID: 5761272339099765217}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -874,8 +874,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.25, y: 0}
   m_AnchorMax: {x: 0.75, y: 1}
-  m_AnchoredPosition: {x: 1.6525002, y: 0}
-  m_SizeDelta: {x: 3.305, y: 0}
+  m_AnchoredPosition: {x: 1.1490002, y: 0}
+  m_SizeDelta: {x: 9.718, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1978305565077052923
 GameObject:
@@ -1506,8 +1506,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -20}
+  m_AnchoredPosition: {x: 1.151, y: 0}
+  m_SizeDelta: {x: -2.298, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3887510943626439518
 GameObject:
@@ -1708,8 +1708,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 24.999998}
-  m_SizeDelta: {x: 51.82, y: 50}
+  m_AnchoredPosition: {x: -0.0000053644, y: 9.94}
+  m_SizeDelta: {x: 20.61, y: 19.88}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &176202839339227615
 CanvasRenderer:
@@ -2147,8 +2147,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.01, y: -117.34}
-  m_SizeDelta: {x: 48.91, y: 100}
+  m_AnchoredPosition: {x: -0.000030637, y: -69.945}
+  m_SizeDelta: {x: 23.24, y: 42}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8945901184442271164
 CanvasRenderer:
@@ -2672,7 +2672,7 @@ RectTransform:
   m_Father: {fileID: 6008002716105218394}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2748,8 +2748,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.25, y: 0}
   m_AnchorMax: {x: 0.75, y: 1}
-  m_AnchoredPosition: {x: 1.6499996, y: 0}
-  m_SizeDelta: {x: 3.31, y: 0}
+  m_AnchoredPosition: {x: 1.1500001, y: 0}
+  m_SizeDelta: {x: 9.72, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8173937772052071959
 CanvasRenderer:
@@ -3011,8 +3011,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -17.05, y: 0.17}
-  m_SizeDelta: {x: 53.19, y: 337.99}
+  m_AnchoredPosition: {x: -13.6, y: -0.00000095367}
+  m_SizeDelta: {x: 23.24, y: 181.89}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7809283548311801039
 CanvasRenderer:
@@ -3088,8 +3088,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.78000003, y: 0.5}
   m_AnchorMax: {x: 0.78000003, y: 0.5}
-  m_AnchoredPosition: {x: -1.3299999, y: 0.16749}
-  m_SizeDelta: {x: 57, y: 337.99}
+  m_AnchoredPosition: {x: -7.2144, y: 0}
+  m_SizeDelta: {x: 24.032, y: 181.89}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &641538961725269515
 MonoBehaviour:
