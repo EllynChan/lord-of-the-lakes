@@ -32,6 +32,7 @@ public class InventoryManager : MonoBehaviour
             if (slotImage.sprite == null) // Check for an empty slot
             {
                 Fish fish = player.fishInventory[i];
+                // TODO: figure out how to use fish.speciesId to get the image in ScriptableObject
                 // slotImage.sprite =
                 // fish.speciesId
                 // slotImage.sprite = fishSprites[fishIndex]; // Add fish sprite
