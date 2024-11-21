@@ -85638,6 +85638,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0.00000095367
       objectReference: {fileID: 0}
+    - target: {fileID: 6749704030587095051, guid: 3851ab349fb8e7e4e89e695bfb23786b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7111551510290443655, guid: 3851ab349fb8e7e4e89e695bfb23786b, type: 3}
       propertyPath: m_Name
       value: FishCaughtPanel
@@ -85726,10 +85730,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8957219481299298590, guid: 3851ab349fb8e7e4e89e695bfb23786b, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -1.3299999
-      objectReference: {fileID: 0}
     - target: {fileID: 9053014923371513615, guid: 3851ab349fb8e7e4e89e695bfb23786b, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -85746,7 +85746,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8358456961773619260, guid: 3851ab349fb8e7e4e89e695bfb23786b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
