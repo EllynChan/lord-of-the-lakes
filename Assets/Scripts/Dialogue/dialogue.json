@@ -1,10 +1,4 @@
 {
-  "shopkeeper": {
-    "welcome": "Welcome to the shop, meow~!",
-    "buy": "Thanks for the purrrrchase!",
-    "sell": "Nice cat-ch!",
-    "broke": "You don't have e-nya-ough coins for that!"
-  },
   "introduction": {
     "conversation": {
       "line_0": {
