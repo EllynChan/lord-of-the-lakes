@@ -19,9 +19,8 @@ public class PlayerFishGameState : PlayerState
     private GameObject fishIcon;
     private GameObject catchingBar;
 
-    [Header("Settings")]
-    [SerializeField] private float catchMultiplier = 10f; //Higher means catch fish faster x
-    [SerializeField] private float catchingForce = 30000; //How much force to push the catchingbar up by
+    private float catchMultiplier = 10f; //Higher means catch fish faster x
+    private float catchingForce = 30000; //How much force to push the catchingbar up by
 
     private Fish currentFishOnLine;
     private bool beingCaught; 
@@ -32,7 +31,7 @@ public class PlayerFishGameState : PlayerState
     private FishingMinigameChase_Collision fishChaseCollision; //Reference to this script on the fish
     private bool inTrigger = false; //Whether or not the fish is inside the "catchingbar"
 
-    private float catchPercentage = 0f; //0-100 how much you have caught the fish
+    private float catchPercentage = 20f; //0-100 how much you have caught the fish
     private UnityEngine.UI.Slider catchProgressBar; //The bar on the right that shows how much you have caught
 
 
