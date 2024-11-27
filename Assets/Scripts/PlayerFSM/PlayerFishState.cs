@@ -26,7 +26,6 @@ public class PlayerFishState : PlayerState
 
     public override void Enter()
     {
-        
         base.Enter();
         nibble = false;
         Debug.Log("fishing now");
@@ -35,7 +34,6 @@ public class PlayerFishState : PlayerState
         nibbleWaitTime = Time.time + Random.Range(maxWaitTime * 0.25f, maxWaitTime);
         catchTimer = Time.time;
         exclamationLeftPos = player.exclamationMark.transform.position;
-        fishCaughtPanelLeftPos = player.fishCaughtPanel.transform.position;
 
     }
 
