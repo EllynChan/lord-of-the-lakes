@@ -19,15 +19,14 @@ public class PlayerFishGameState : PlayerState
     private GameObject fishIcon;
     private GameObject catchingBar;
 
-    UnityEngine.UI.Slider catchProgressBar; 
-    // just setting this bool to true for now to test the animation
-    bool nibble = false;
-    float nibbleTimer; // timer it takes to get a fish nibble
-    float nibbleWaitTime; // Set time it takes to get a fish nibble calculated when entering this state; nibbleTimer ticks up until it reaches this time
-    float catchTimer; // timer for how long player can wait to reach and catch the fish
-    float maxWaitTime = 6f; // can change this if we want it to be longer
+    private float catchMultiplier = 10f; //Higher means catch fish faster x
+    private float catchingForce = 30000; //How much force to push the catchingbar up by
+    private Fish currentFishOnLine;
+    private bool beingCaught;
 
-    Vector3 exclamationLeftPos;
+    private float catchPercentage = 0f; //0-100 how much you have caught the fish
+    UnityEngine.UI.Slider catchProgressBar;
+
     Vector3 fishCaughtPanelLeftPos;
 
     public PlayerFishGameState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine)
@@ -38,15 +37,8 @@ public class PlayerFishGameState : PlayerState
     {
         
         base.Enter();
-        nibble = false;
-        Debug.Log("fishing now");
-        player.Animator.SetBool("IsFishing", true);
-        nibbleTimer = Time.time;
-        nibbleWaitTime = Time.time + Random.Range(maxWaitTime * 0.25f, maxWaitTime);
-        catchTimer = Time.time;
-        exclamationLeftPos = player.exclamationMark.transform.position;
         fishCaughtPanelLeftPos = player.fishCaughtPanel.transform.position;
-        Debug.Log(nibbleWaitTime);
+        player.Animator.SetBool("isFishMinigame", true);
 
         fishMinigameChase = "/Player/PlayerCanvas/FishMinigame_Chase";
         fishMinigameMash = "/Player/PlayerCanvas/FishMinigame_Mash";
@@ -60,82 +52,48 @@ public class PlayerFishGameState : PlayerState
         player.Animator.SetBool("FishCaught", false);
         player.Animator.SetBool("IsFishing", false);
         player.fishCaughtPanel.SetActive(false);
-        player.exclamationMark.transform.position = exclamationLeftPos; // reset to original position, left is default
         player.fishCaughtPanel.transform.position = fishCaughtPanelLeftPos;
         base.Exit();
     }
 
     public override void Update()
     {
-        // TODO: bug somethign is wrong with the catch timer (sometimes it triggers without nibble happening first)
-        // Timer set ups
-        nibbleTimer += Time.deltaTime; // timer for waiting when a fish will be on the line
-        // indicates a fish is on the line, exclamation mark shows up
-        if (nibbleTimer >= nibbleWaitTime && !nibble)
-        {
-            nibble = true;
-            player.exclamationMark.SetActive(true);
-            this.startTime = Time.time;
-            catchTimer = Time.time;
-            string playerSprite = player.GetComponent<SpriteRenderer>().sprite.name;
-            Debug.Log(playerSprite);
-            if (playerSprite.Contains("right"))
-            {
-                player.exclamationMark.transform.position = new Vector3(exclamationLeftPos.x + 0.8f, exclamationLeftPos.y, 0);
-            } else if (playerSprite.Contains("up"))
-            {
-                player.exclamationMark.transform.position = new Vector3(exclamationLeftPos.x + 0.3f, exclamationLeftPos.y + 0.4f, 0);
-            } else if (playerSprite.Contains("down"))
-            {
-                player.exclamationMark.transform.position = new Vector3(exclamationLeftPos.x + 0.3f, exclamationLeftPos.y, 0);
-            }
-        }
-        if (nibble)
-        {
-            catchTimer += Time.deltaTime; // timer starts when nibble happens, if player is too slow the fish gets away
-        }
-        
-        // if player takes too long to catch fish, the fish gets away
-        if (nibble & catchTimer > this.startTime + 2f)
-        {
-            nibble = false;
-            player.Animator.SetBool("IsFishing", false);
-            player.exclamationMark.SetActive(false);
-            stateMachine.ChangeState(player.BoatState);
-        }
-        // player presses F in time and should catch the fish that is on the line or cancel the fishing if there is no fish on the line
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            player.Animator.SetBool("IsFishing", false);
-            
-            player.exclamationMark.SetActive(false);
-            if (nibble)
-            {
-                string fishMinigameString = fishMinigameChase; // TODO: later must make it depend on a condition
-                fishMinigameCanvas = GameObject.Find(fishMinigameChase);
-                fishIcon = GameObject.Find(fishMinigameChase + "/WaterBar/FishIcon");
-                // GameObject catchingBar = GameObject.Find("FishMinigame_Chase/WaterBar/CatchingBar");
 
-                //UnityEngine.UI.Slider catchProgressBar = GameObject.Find("FishMinigame_Chase/CatchingProgressBar").GetComponent<UnityEngine.UI.Slider>(); //The bar on the right that shows how much you have caught
+        string fishMinigameString = fishMinigameChase; // TODO: later must make it depend on a condition to change the types of minigames
+        fishMinigameCanvas = GameObject.Find(fishMinigameChase);
+        fishIcon = GameObject.Find(fishMinigameChase + "/WaterBar/FishIcon");
+        catchingBar = GameObject.Find(fishMinigameChase + "/WaterBar/CatchingBar");
 
-                // catchingBarRB = catchingBar.GetComponent<Rigidbody2D>(); //Get reference to the Rigidbody on the catchingbar
-                fishMinigameCanvas.SetActive(true);
+        catchProgressBar = GameObject.Find(fishMinigameChase + "/CatchProgressBar").GetComponent<UnityEngine.UI.Slider>(); //The bar on the right that shows how much you have caught
 
-                Fish fish = FishManager.GetRandomFish(Rarity.common).Item1;
-                var tempSprite = Resources.Load<Sprite>($"FishSprites/{fish.speciesId}");
-                player.fishCaughtImage.GetComponent<UnityEngine.UI.Image>().sprite = tempSprite;
-                player.fishCaughtNameText.GetComponent<TMP_Text>().text = fish.name;
-                
-                Debug.Log(fish.name);
-                player.Animator.SetBool("FishCaught", true);
+        catchingBarRB = catchingBar.GetComponent<Rigidbody2D>(); //Get reference to the Rigidbody on the catchingbar
+        fishMinigameCanvas.SetActive(true);
 
-                this.startTime = Time.time;
-                
-            } else
-            {
-                stateMachine.ChangeState(player.BoatState);
-            }
+        if (Input.GetMouseButtonDown(0))
+        {
+            catchingBarRB.AddForce(Vector2.up * catchingForce * Time.deltaTime, ForceMode2D.Force); //Add force to lift the bar
         }
+
+        //If the fish is in our trigger box
+        if (beingCaught && player.Animator.GetCurrentAnimatorStateInfo(0).IsName("Fishing"))
+        {
+            catchPercentage += catchMultiplier * Time.deltaTime;
+        }
+        else
+        {
+            catchPercentage -= catchMultiplier * Time.deltaTime;
+        }
+
+        //Clamps our percentage between 0 and 100
+        catchPercentage = Mathf.Clamp(catchPercentage, 0, 100);
+        catchProgressBar.value = catchPercentage;
+        if (catchPercentage >= 100)
+        { //Fish is caught if percentage is full
+            catchPercentage = 0;
+            FishCaught();
+        }
+
+
         if (player.Animator.GetCurrentAnimatorStateInfo(0).IsName("Catch"))
         {
             string playerSprite = player.GetComponent<SpriteRenderer>().sprite.name;
@@ -161,6 +119,24 @@ public class PlayerFishGameState : PlayerState
             player.fishCaughtPanel.SetActive(false);
             stateMachine.ChangeState(player.BoatState);
         }
+
+    }
+
+    //Called when the catchpercentage hits 100
+    public void FishCaught()
+    {
+        if (currentFishOnLine == null)
+        { //This picks a new fish if the old one is lost by chance
+            currentFishOnLine = FishManager.GetRandomFish(Rarity.common).Item1;
+        }
+        var tempSprite = Resources.Load<Sprite>($"FishSprites/{currentFishOnLine.speciesId}");
+        player.fishCaughtImage.GetComponent<UnityEngine.UI.Image>().sprite = tempSprite;
+        player.fishCaughtNameText.GetComponent<TMP_Text>().text = currentFishOnLine.name;
+
+        Debug.Log(currentFishOnLine.name);
+        player.Animator.SetBool("IsFishMinigame", false);
+        player.Animator.SetBool("FishCaught", true);
+        fishMinigameCanvas.SetActive(false); //Disable the fishing canvas
 
     }
 }
