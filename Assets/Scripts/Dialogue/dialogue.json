@@ -1,4 +1,25 @@
 {
+  "shopkeeper": {
+    "conversation": {
+      "welcome": {
+        "name": "shopkeeper",
+        "text": "Welcome to the shop, meow~!"
+      },
+      "buy": {
+        "name": "shopkeeper",
+        "text": "Thanks for the purrrrchase!"
+      },
+      "sell": {
+        "name": "shopkeeper",
+        "text": "Nice cat-ch!"
+      },
+      "broke": {
+        "name": "shopkeeper",
+        "text": "You don't have e-nya-ough coins for that!"
+      }
+    },
+    "num_lines": 4
+  },
   "introduction": {
     "conversation": {
       "line_0": {

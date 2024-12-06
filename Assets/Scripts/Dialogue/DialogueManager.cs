@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static DialogueManager;
+using Newtonsoft.Json;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -52,9 +52,22 @@ public class DialogueManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
-        dialogues = JsonUtility.FromJson<Dictionary<string, DialogueEvent>>(dialogueJson.text);
-        Debug.Log(dialogueJson.text);
+        dialogues = JsonConvert.DeserializeObject<Dictionary<string, DialogueEvent>>(dialogueJson.text);
+
+        /*foreach (string k in dialogues.Keys)
+        {
+            Debug.Log(k);
+        }*/
+    }
+
+    void StartDialogue(string eventKey)
+    {
+        uiCanvas.SetActive(true);
+    }
+
+    void EndDialogue()
+    {
+        uiCanvas.SetActive(false);
     }
 
     // Update is called once per frame
