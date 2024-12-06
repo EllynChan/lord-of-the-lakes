@@ -76,7 +76,7 @@ public class PlayerFishGameState : PlayerState
 
     public override void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) || Input.GetKey(KeyCode.F))
         {
             Debug.Log("click");
             catchingBarRB.AddForce(Vector2.up * catchingForce * Time.deltaTime, ForceMode2D.Force); //Add force to lift the bar
