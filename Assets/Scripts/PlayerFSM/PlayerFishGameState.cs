@@ -19,11 +19,10 @@ public class PlayerFishGameState : PlayerState
     private GameObject fishIcon;
     private GameObject catchingBar;
 
-    private float catchMultiplier = 10f; //Higher means catch fish faster x
-    private float catchingForce = 30000; //How much force to push the catchingbar up by
+    private float catchMultiplier = 30f; //Higher means catch fish faster x
+    private float catchingForce = 1000; //How much force to push the catchingbar up by
 
     private Fish currentFishOnLine;
-    private bool beingCaught; 
     public bool reelingFish = false;
 
     //This is the fish on the UI that you are chasing to catch
@@ -47,12 +46,22 @@ public class PlayerFishGameState : PlayerState
         fishCaughtPanelLeftPos = player.fishCaughtPanel.transform.position;
         player.Animator.SetBool("IsFishMinigame", true);
         reelingFish = true;
+        catchPercentage = 20f;
 
         fishMinigameChase = "/Player/PlayerCanvas/FishMinigame_Chase";
         fishMinigameMash = "/Player/PlayerCanvas/FishMinigame_Mash";
         fishMinigameRhythm = "/Player/PlayerCanvas/FishMinigame_Rhythm";
         fishMinigameHold = "/Player/PlayerCanvas/FishMinigame_HoldRelease";
 
+        //string fishMinigameString = fishMinigameChase; // TODO: later must make it depend on a condition to change the types of minigames
+        fishMinigameCanvas = GameObject.Find(fishMinigameChase);
+        fishIcon = GameObject.Find(fishMinigameChase + "/WaterBar/FishIcon");
+        catchingBar = GameObject.Find(fishMinigameChase + "/WaterBar/CatchingBar");
+
+        catchProgressBar = GameObject.Find(fishMinigameChase + "/CatchProgressBar").GetComponent<UnityEngine.UI.Slider>(); //The bar on the right that shows how much you have caught
+
+        catchingBarRB = catchingBar.GetComponent<Rigidbody2D>(); //Get reference to the Rigidbody on the catchingbar
+        fishMinigameCanvas.SetActive(true);
     }
 
     public override void Exit()
@@ -67,16 +76,6 @@ public class PlayerFishGameState : PlayerState
 
     public override void Update()
     {
-        //string fishMinigameString = fishMinigameChase; // TODO: later must make it depend on a condition to change the types of minigames
-        fishMinigameCanvas = GameObject.Find(fishMinigameChase);
-        fishIcon = GameObject.Find(fishMinigameChase + "/WaterBar/FishIcon");
-        catchingBar = GameObject.Find(fishMinigameChase + "/WaterBar/CatchingBar");
-
-        catchProgressBar = GameObject.Find(fishMinigameChase + "/CatchProgressBar").GetComponent<UnityEngine.UI.Slider>(); //The bar on the right that shows how much you have caught
-
-        catchingBarRB = catchingBar.GetComponent<Rigidbody2D>(); //Get reference to the Rigidbody on the catchingbar
-        fishMinigameCanvas.SetActive(true);
-
         if (Input.GetMouseButton(0))
         {
             Debug.Log("click");
@@ -84,8 +83,9 @@ public class PlayerFishGameState : PlayerState
         }
 
         //If the fish is in our trigger box
-        if (beingCaught && player.Animator.GetCurrentAnimatorStateInfo(0).IsName("Fishing"))
+        if (inTrigger && player.Animator.GetCurrentAnimatorStateInfo(0).IsName("Reeling"))
         {
+            Debug.Log("beingCaught");
             catchPercentage += catchMultiplier * Time.deltaTime;
         }
         else
@@ -98,7 +98,6 @@ public class PlayerFishGameState : PlayerState
         catchProgressBar.value = catchPercentage;
         if (catchPercentage >= 100)
         { //Fish is caught if percentage is full
-            catchPercentage = 0;
             FishCaught();
         }
 
@@ -146,6 +145,7 @@ public class PlayerFishGameState : PlayerState
         player.Animator.SetBool("IsFishMinigame", false);
         player.Animator.SetBool("FishCaught", true);
         fishMinigameCanvas.SetActive(false); //Disable the fishing canvas
+        this.startTime = Time.time;
     }
 
     //Called from the FishingMinigame_FishTrigger script
