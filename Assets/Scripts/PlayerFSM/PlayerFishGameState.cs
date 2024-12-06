@@ -69,6 +69,7 @@ public class PlayerFishGameState : PlayerState
         player.Animator.SetBool("FishCaught", false);
         player.Animator.SetBool("IsFishing", false);
         reelingFish = false;
+        currentFishOnLine = null;
         player.fishCaughtPanel.SetActive(false);
         player.fishCaughtPanel.transform.position = fishCaughtPanelLeftPos;
         base.Exit();
@@ -101,7 +102,7 @@ public class PlayerFishGameState : PlayerState
             FishCaught();
         }
 
-
+        
         if (player.Animator.GetCurrentAnimatorStateInfo(0).IsName("Catch"))
         {
             string playerSprite = player.GetComponent<SpriteRenderer>().sprite.name;
