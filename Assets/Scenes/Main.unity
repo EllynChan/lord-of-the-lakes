@@ -156,6 +156,11 @@ MonoBehaviour:
   cellPrefab: {fileID: 3791895478649534279, guid: f30e34506ef3340f99fd9dc145dcd287, type: 3}
   inventoryGrid: {fileID: 1141643971}
   maxInventorySlots: 30
+  inventoryItems:
+  - {fileID: 11400000, guid: c28a04c48b1e54d389b0ab1cc67d28e2, type: 2}
+  - {fileID: 11400000, guid: 10f7cc00395054cee928d30e1ff3ce40, type: 2}
+  - {fileID: 11400000, guid: c70685b09f3124926a93a0b47d563615, type: 2}
+  - {fileID: 11400000, guid: 1781c862a954044f195d8908672bf529, type: 2}
 --- !u!4 &52366875
 Transform:
   m_ObjectHideFlags: 0

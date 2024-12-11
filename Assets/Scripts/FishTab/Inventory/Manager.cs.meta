@@ -4,6 +4,7 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
+  - cellPrefab: {instanceID: 0}
   - inventoryGrid: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
