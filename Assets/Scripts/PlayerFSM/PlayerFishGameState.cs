@@ -46,7 +46,7 @@ public class PlayerFishGameState : PlayerState
         fishCaughtPanelLeftPos = player.fishCaughtPanel.transform.position;
         player.Animator.SetBool("IsFishMinigame", true);
         reelingFish = true;
-        catchPercentage = 20f;
+        catchPercentage = 40f;
 
         fishMinigameChase = "/Player/PlayerCanvas/FishMinigame_Chase";
         fishMinigameMash = "/Player/PlayerCanvas/FishMinigame_Mash";
@@ -100,6 +100,13 @@ public class PlayerFishGameState : PlayerState
         if (catchPercentage >= 100)
         { //Fish is caught if percentage is full
             FishCaught();
+        }
+
+        if (catchPercentage <= 0)
+        {
+            player.Animator.SetBool("IsFishMinigame", false);
+            fishMinigameCanvas.SetActive(false); //Disable the fishing canvas
+            stateMachine.ChangeState(player.BoatState);
         }
 
         
