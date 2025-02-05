@@ -31,6 +31,8 @@ public class Player : MonoBehaviour
     public readonly Vector2 colliderOffsetHorizontal = new Vector2(0.2165f, -0.9760f);
     public readonly Vector2 colliderOffsetVertical = new Vector2(0.0119f, -0.5760f);
 
+    public bool isOnShinySpot = false;
+
     public Vector2 moveDirection;
     public float moveSpeed;
     [SerializeField] public Sprite[] sprites;
@@ -59,5 +61,20 @@ public class Player : MonoBehaviour
     private void Update()
     {
         StateMachine.CurrentState.Update();
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        Debug.Log("Player collided with " + col.name);
+        if (col.name == "ShinySpot") {
+            isOnShinySpot = true;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.name == "ShinySpot") {
+            isOnShinySpot = false;
+        }
     }
 }

@@ -73,3 +73,6 @@ crashlytics-build.properties
 
 UpgradeLog*.htm
 
+.DS_Store
+.vscode/
+.DS_Store

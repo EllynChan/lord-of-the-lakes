@@ -18,6 +18,7 @@ public class PlayerFishState : PlayerState
     float catchTimer; // timer for how long player can wait to reach and catch the fish
     float maxWaitTime = 6f; // can change this if we want it to be longer
 
+
     Vector3 exclamationLeftPos;
 
     public PlayerFishState(Player player, PlayerStateMachine stateMachine) : base(player, stateMachine)
@@ -31,7 +32,10 @@ public class PlayerFishState : PlayerState
         Debug.Log("fishing now");
         player.Animator.SetBool("IsFishing", true);
         nibbleTimer = Time.time;
-        nibbleWaitTime = Time.time + Random.Range(maxWaitTime * 0.25f, maxWaitTime);
+
+        float playerMaxWaitTime = player.isOnShinySpot ? shinySpotMaxWaitTime : maxWaitTime;
+        nibbleWaitTime = Time.time + Random.Range(playerMaxWaitTime * 0.25f, playerMaxWaitTime);
+
         catchTimer = Time.time;
         exclamationLeftPos = player.exclamationMark.transform.position;
 
@@ -63,10 +67,12 @@ public class PlayerFishState : PlayerState
             if (playerSprite.Contains("right"))
             {
                 player.exclamationMark.transform.position = new Vector3(exclamationLeftPos.x + 0.8f, exclamationLeftPos.y, 0);
-            } else if (playerSprite.Contains("up"))
+            }
+            else if (playerSprite.Contains("up"))
             {
                 player.exclamationMark.transform.position = new Vector3(exclamationLeftPos.x + 0.3f, exclamationLeftPos.y + 0.4f, 0);
-            } else if (playerSprite.Contains("down"))
+            }
+            else if (playerSprite.Contains("down"))
             {
                 player.exclamationMark.transform.position = new Vector3(exclamationLeftPos.x + 0.3f, exclamationLeftPos.y, 0);
             }
@@ -89,7 +95,7 @@ public class PlayerFishState : PlayerState
         if (Input.GetKeyDown(KeyCode.F))
         {
             player.Animator.SetBool("IsFishing", false);
-            
+
             player.exclamationMark.SetActive(false);
             // there is a fish on the line, transition to a fishing minigame
             if (nibble)
