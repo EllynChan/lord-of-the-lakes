@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 
     public PlayerBoatState BoatState { get; private set; }
     public PlayerFishState FishState { get; private set; }
+    public PlayerFishGameState FishGameState { get; private set; }
 
     public Animator Animator {  get; private set; }
     [SerializeField] public GameObject exclamationMark; 
@@ -41,6 +42,7 @@ public class Player : MonoBehaviour
         StateMachine = new PlayerStateMachine();
         BoatState = new PlayerBoatState(this, StateMachine);
         FishState = new PlayerFishState(this, StateMachine);
+        FishGameState = new PlayerFishGameState(this, StateMachine);
     }
 
     private void Start()
