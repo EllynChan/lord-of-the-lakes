@@ -79,14 +79,12 @@ public class PlayerFishGameState : PlayerState
     {
         if (Input.GetMouseButton(0) || Input.GetKey(KeyCode.F))
         {
-            Debug.Log("click");
             catchingBarRB.AddForce(Vector2.up * catchingForce * Time.deltaTime, ForceMode2D.Force); //Add force to lift the bar
         }
 
         //If the fish is in our trigger box
         if (inTrigger && player.Animator.GetCurrentAnimatorStateInfo(0).IsName("Reeling"))
         {
-            Debug.Log("beingCaught");
             catchPercentage += catchMultiplier * Time.deltaTime;
         }
         else
