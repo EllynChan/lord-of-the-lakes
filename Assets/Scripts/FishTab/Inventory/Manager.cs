@@ -39,11 +39,7 @@ public class InventoryManager : MonoBehaviour
             GameObject newSlot = Instantiate(cellPrefab, inventoryGrid.transform);
             inventorySlots.Add(newSlot);
         }
-    }
 
-    // Update is called once per frame
-    public void Update()
-    {
         Debug.Log("player.fishInventory.Count: " + player.fishInventory.Count);
         for (int i = 0; i < inventorySlots.Count; i++)
         {
@@ -56,12 +52,17 @@ public class InventoryManager : MonoBehaviour
 
                 if (inventoryItem != null)
                 {
-                    slotImage.sprite = inventoryItem.image;
+                    Transform overlayTrans = inventorySlots[i].transform.Find("ItemImage");
+                    if (overlayTrans != null)
+                    {
+                        Image overlayImage = overlayTrans.GetComponent<Image>();
+                        overlayImage.sprite = inventoryItem.image;
+                    }
+                    else
+                    {
+                        Debug.Log("overlayTrans is null");
+                    }
                 }
-            }
-            else
-            {
-                slotImage.sprite = null;
             }
         }
     }
