@@ -13,14 +13,23 @@ public class FishingMinigameChase_Collision : MonoBehaviour
     [SerializeField] private Player player;
     private PlayerFishGameState minigameController;
 
-    private void Awake()
+    private void Start()
     {
         minigameController = player.FishGameState;
+        if (player == null)
+        {
+            Debug.LogError("player is null");
+        }
+        Debug.Log("minigameController: " + minigameController);
+        if (minigameController == null)
+        {
+            Debug.LogError("minigameController is null");
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("OnTriggerEnter2D");
+        Debug.Log("OnTriggerEnter2D" + minigameController);
         if (minigameController.reelingFish)
         {
             if (other.CompareTag("CatchingBar") && !beingCaught)

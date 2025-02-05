@@ -33,20 +33,25 @@ public class InventoryManager : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
-        List<Fish> fishInventory = player.fishInventory;
         for (int i = 0; i < maxInventorySlots; i++)
         {
             GameObject newSlot = Instantiate(cellPrefab, inventoryGrid.transform);
             inventorySlots.Add(newSlot);
         }
 
-        Debug.Log("player.fishInventory.Count: " + player.fishInventory.Count);
+        RefreshInventoryUI();
+    }
+
+    public void RefreshInventoryUI()
+    {
+        List<Fish> fishInventory = player.fishInventory;
+        Debug.Log("player.fishInventory.Count: " + fishInventory.Count);
         for (int i = 0; i < inventorySlots.Count; i++)
         {
             Image slotImage = inventorySlots[i].GetComponent<Image>();
-            if (i < player.fishInventory.Count)
+            if (i < fishInventory.Count)
             {
-                Fish fish = player.fishInventory[i];
+                Fish fish = fishInventory[i];
                 Item inventoryItem = GetItemById(fish.speciesId);
                 Debug.Log("player.fishInventory fish.speciesId: " + fish.speciesId);
 
