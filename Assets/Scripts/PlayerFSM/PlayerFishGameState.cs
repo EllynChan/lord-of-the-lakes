@@ -154,6 +154,7 @@ public class PlayerFishGameState : PlayerState
         this.startTime = Time.time;
 
         player.fishInventory.Add(currentFishOnLine);
+        Debug.Log("Fish caught: " + currentFishOnLine.name);
         InventoryManager inventoryManager = GameObject.FindObjectOfType<InventoryManager>();
         if (inventoryManager != null)
         {
