@@ -16,8 +16,8 @@ public class PlayerFishState : PlayerState
     float nibbleTimer; // timer it takes to get a fish nibble
     float nibbleWaitTime; // Set time it takes to get a fish nibble calculated when entering this state; nibbleTimer ticks up until it reaches this time
     float catchTimer; // timer for how long player can wait to reach and catch the fish
-    float maxWaitTime = 6f; // can change this if we want it to be longer
-
+    readonly float maxWaitTime = 6f; // can change this if we want it to be longer
+    readonly float shinySpotMaxWaitTime = 3f;
 
     Vector3 exclamationLeftPos;
 
