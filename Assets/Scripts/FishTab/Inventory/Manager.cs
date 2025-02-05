@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,10 +25,14 @@ public class InventoryManager : MonoBehaviour
         return null; // Return null if no item matches
     }
 
+    private void Awake()
+    {
+        player = FindObjectOfType<Player>();
+    }
+
     // Start is called before the first frame update
     public void Start()
     {
-        Debug.Log("InventoryManager Start");
         List<Fish> fishInventory = player.fishInventory;
         for (int i = 0; i < maxInventorySlots; i++)
         {
@@ -41,19 +44,24 @@ public class InventoryManager : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
+        Debug.Log("player.fishInventory.Count: " + player.fishInventory.Count);
         for (int i = 0; i < inventorySlots.Count; i++)
         {
             Image slotImage = inventorySlots[i].GetComponent<Image>();
-            if (slotImage.sprite == null) // Check for an empty slot
+            if (i < player.fishInventory.Count)
             {
                 Fish fish = player.fishInventory[i];
-
                 Item inventoryItem = GetItemById(fish.speciesId);
-                // TODO: figure out how to use fish.speciesId to get the image in ScriptableObject
-                // slotImage.sprite = fish.speciesId;
-                // fish.speciesId
-                // slotImage.sprite = fishSprites[fishIndex]; // Add fish sprite
-                break;
+                Debug.Log("player.fishInventory fish.speciesId: " + fish.speciesId);
+
+                if (inventoryItem != null)
+                {
+                    slotImage.sprite = inventoryItem.image;
+                }
+            }
+            else
+            {
+                slotImage.sprite = null;
             }
         }
     }

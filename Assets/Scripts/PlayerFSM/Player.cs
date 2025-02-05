@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     public PlayerBoatState BoatState { get; private set; }
     public PlayerFishState FishState { get; private set; }
 
-    public Animator Animator {  get; private set; }
+    public Animator Animator { get; private set; }
     [SerializeField] public GameObject exclamationMark;
     [SerializeField] public GameObject fishCaughtPanel;
     [SerializeField] public GameObject fishCaughtImage;
@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
     public float moveSpeed;
     [SerializeField] public Sprite[] sprites;
 
-    [SerializeField] public List<Fish> fishInventory;
+    [SerializeField] public List<Fish> fishInventory = new List<Fish>();
 
     private void Awake()
     {
@@ -66,14 +66,16 @@ public class Player : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         Debug.Log("Player collided with " + col.name);
-        if (col.name == "ShinySpot") {
+        if (col.name == "ShinySpot")
+        {
             isOnShinySpot = true;
         }
     }
 
     void OnTriggerExit2D(Collider2D col)
     {
-        if (col.name == "ShinySpot") {
+        if (col.name == "ShinySpot")
+        {
             isOnShinySpot = false;
         }
     }
