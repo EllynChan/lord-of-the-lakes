@@ -91,6 +91,13 @@ public class DialogueManager : MonoBehaviour
         {
             mcImage.SetActive(true);
             mcImage.GetComponent<Image>().sprite = mcSprites[(int)cl.frame_mc];
+            if (cl.name == "Jonah" || cl.name == "???")
+            {
+                mcImage.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+            } else
+            {
+                mcImage.GetComponent<Image>().color = new Color32(150, 150, 150, 255);
+            }
         }
         else
         {
@@ -103,10 +110,26 @@ public class DialogueManager : MonoBehaviour
             if (currentDialogueEvent.texture_ally == 51)
             {
                 allyImage.GetComponent<Image>().sprite = ally1Sprites[(int)cl.frame_ally];
+                if (cl.name == "Nix" || cl.name == "Strange Girl")
+                {
+                    allyImage.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+                }
+                else
+                {
+                    allyImage.GetComponent<Image>().color = new Color32(150, 150, 150, 255);
+                }
             }
             else if (currentDialogueEvent.texture_ally == 80)
             {
                 allyImage.GetComponent<Image>().sprite = ally2Sprites[(int)cl.frame_ally];
+                if (cl.name == "Lance")
+                {
+                    allyImage.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+                }
+                else
+                {
+                    allyImage.GetComponent<Image>().color = new Color32(150, 150, 150, 255);
+                }
             }
         }
         else
