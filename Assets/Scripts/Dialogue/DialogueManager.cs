@@ -35,8 +35,9 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject uiCanvas;
     [SerializeField] private TextMeshProUGUI nameText; 
     [SerializeField] private TextMeshProUGUI dialogueText;
-    [SerializeField] private Image mcImage;
-    [SerializeField] private Image allyImage;
+    [SerializeField] private GameObject mcImage;
+    [SerializeField] private GameObject allyImage;
+    [SerializeField] private GameObject cg;
 
     [SerializeField] private TextAsset dialogueJson; // Reference to JSON
     [SerializeField] private List<Sprite> mcSprites;
@@ -85,30 +86,43 @@ public class DialogueManager : MonoBehaviour
         dialogueText.text = cl.text;
         nameText.text = cl.name;
 
-        /*if (cl.frame_mc != null)
+        // handle sprite changes
+        if (cl.frame_mc != null)
         {
-            mcImage.sprite = mcSprites[ (int) cl.frame_mc];
+            mcImage.SetActive(true);
+            mcImage.GetComponent<Image>().sprite = mcSprites[(int)cl.frame_mc];
         }
         else
         {
-            mcImage = null;
+            mcImage.SetActive(false);
         }
 
         if (cl.frame_ally != null)
-        {
+        { 
+            allyImage.SetActive(true);
             if (currentDialogueEvent.texture_ally == 51)
             {
-                allyImage.sprite = ally1Sprites[(int)cl.frame_ally];
-            } 
+                allyImage.GetComponent<Image>().sprite = ally1Sprites[(int)cl.frame_ally];
+            }
             else if (currentDialogueEvent.texture_ally == 80)
             {
-                allyImage.sprite = ally2Sprites[(int)cl.frame_ally];
+                allyImage.GetComponent<Image>().sprite = ally2Sprites[(int)cl.frame_ally];
             }
-        } 
+        }
         else
         {
-            allyImage = null;
-        }*/
+            allyImage.SetActive(false);
+        }
+
+        if (cl.background != null)
+        {
+            cg.SetActive(true);
+            cg.GetComponent<Image>().sprite = CGManager.Instance.GetCG((int)cl.background);
+        }
+        else
+        {
+            cg.SetActive(false);
+        }
 
     }
 
