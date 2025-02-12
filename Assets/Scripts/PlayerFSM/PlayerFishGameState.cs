@@ -16,7 +16,6 @@ public class PlayerFishGameState : PlayerState
 
     private Rigidbody2D catchingBarRB;
     private GameObject fishMinigameCanvas;
-    private GameObject fishIcon;
     private GameObject catchingBar;
 
     private float catchMultiplier = 30f; //Higher means catch fish faster x
@@ -55,7 +54,6 @@ public class PlayerFishGameState : PlayerState
 
         //string fishMinigameString = fishMinigameChase; // TODO: later must make it depend on a condition to change the types of minigames
         fishMinigameCanvas = GameObject.Find(fishMinigameChase);
-        fishIcon = GameObject.Find(fishMinigameChase + "/WaterBar/FishIcon");
         catchingBar = GameObject.Find(fishMinigameChase + "/WaterBar/CatchingBar");
 
         catchProgressBar = GameObject.Find(fishMinigameChase + "/CatchProgressBar").GetComponent<UnityEngine.UI.Slider>(); //The bar on the right that shows how much you have caught
