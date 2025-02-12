@@ -86012,6 +86012,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3260950368795149060, guid: 3851ab349fb8e7e4e89e695bfb23786b, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3558986924160601280, guid: 3851ab349fb8e7e4e89e695bfb23786b, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.75
@@ -86220,6 +86224,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8670372523380787256, guid: 3851ab349fb8e7e4e89e695bfb23786b, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8836523237164554127, guid: 3851ab349fb8e7e4e89e695bfb23786b, type: 3}
       propertyPath: m_fontStyle
       value: 1
@@ -86408,8 +86416,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1005426907}
-  - {fileID: 1887034943}
   - {fileID: 6357789374803133608}
+  - {fileID: 1887034943}
   - {fileID: 1329654578}
   - {fileID: 843961815}
   - {fileID: 595096570}
