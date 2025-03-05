@@ -33,6 +33,8 @@ public class DialogueManager : MonoBehaviour
     public static DialogueManager Instance;
 
     [SerializeField] private GameObject uiCanvas;
+    [SerializeField] private GameObject canvasMain;
+    [SerializeField] private GameObject canvasPopUp;
     [SerializeField] private TextMeshProUGUI nameText; 
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private GameObject mcImage;
@@ -78,7 +80,15 @@ public class DialogueManager : MonoBehaviour
     {
         if (currentDialogueQueue.Count < 1)
         {
-            EndDialogue();
+            // if popup, handle popup, else end dialogue
+            if (currentDialogueEvent.popup != null)
+            {
+                handlePopUp();
+            } 
+            else
+            {
+                EndDialogue();
+            }
             return;
         }
 
@@ -149,9 +159,20 @@ public class DialogueManager : MonoBehaviour
 
     }
 
-    void EndDialogue()
+    public void EndDialogue()
     {
+        canvasMain.SetActive(true);
+        canvasPopUp.SetActive(false);
         uiCanvas.SetActive(false);
-        // handle popup
+    }
+
+    void handlePopUp()
+    {
+        canvasMain.SetActive(false);
+        canvasPopUp.SetActive(true);
+        GameObject image = canvasPopUp.transform.Find("Image").gameObject;
+        GameObject text = canvasPopUp.transform.Find("Text").gameObject;
+        image.GetComponent<Image>().sprite = CGManager.Instance.GetCG((int)currentDialogueEvent.popup.image);
+        text.GetComponent<TextMeshProUGUI>().text = currentDialogueEvent.popup.text;
     }
 }
