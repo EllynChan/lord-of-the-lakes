@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FishingMinigameChase_Collision : MonoBehaviour
@@ -13,7 +14,7 @@ public class FishingMinigameChase_Collision : MonoBehaviour
     [SerializeField] private Player player;
     private PlayerFishGameState minigameController;
 
-    private void Start()
+    private void Awake()
     {
         minigameController = player.FishGameState;
         if (player == null)
