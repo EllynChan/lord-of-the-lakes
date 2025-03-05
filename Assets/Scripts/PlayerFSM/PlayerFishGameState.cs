@@ -105,7 +105,7 @@ public class PlayerFishGameState : PlayerState
             stateMachine.ChangeState(player.BoatState);
         }
 
-        
+
         if (player.Animator.GetCurrentAnimatorStateInfo(0).IsName("Catch"))
         {
             string playerSprite = player.GetComponent<SpriteRenderer>().sprite.name;
@@ -150,6 +150,14 @@ public class PlayerFishGameState : PlayerState
         player.Animator.SetBool("FishCaught", true);
         fishMinigameCanvas.SetActive(false); //Disable the fishing canvas
         this.startTime = Time.time;
+
+        player.fishInventory.Add(currentFishOnLine);
+        Debug.Log("Fish caught: " + currentFishOnLine.name);
+        InventoryManager inventoryManager = GameObject.FindObjectOfType<InventoryManager>();
+        if (inventoryManager != null)
+        {
+            inventoryManager.RefreshInventoryUI();
+        }
     }
 
     //Called from the FishingMinigame_FishTrigger script
