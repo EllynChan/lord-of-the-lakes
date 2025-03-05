@@ -161,11 +161,18 @@ public class DialogueManager : MonoBehaviour
 
     public void EndDialogue()
     {
+        canvasMain.SetActive(true);
+        canvasPopUp.SetActive(false);
         uiCanvas.SetActive(false);
     }
 
     void handlePopUp()
     {
-        // todo
+        canvasMain.SetActive(false);
+        canvasPopUp.SetActive(true);
+        GameObject image = canvasPopUp.transform.Find("Image").gameObject;
+        GameObject text = canvasPopUp.transform.Find("Text").gameObject;
+        image.GetComponent<Image>().sprite = CGManager.Instance.GetCG((int)currentDialogueEvent.popup.image);
+        text.GetComponent<TextMeshProUGUI>().text = currentDialogueEvent.popup.text;
     }
 }
