@@ -19,7 +19,6 @@ public class InventoryManager : MonoBehaviour
     {
         foreach (Item item in inventoryItems)
         {
-            Debug.Log("GetItemById item.id: " + item.id + ",Type:" + item.type + ", Looking for id: " + id);
             if (item.type == ItemType.Fish && item.id == id)
                 return item;
         }
@@ -60,12 +59,9 @@ public class InventoryManager : MonoBehaviour
                 if (inventoryItem != null)
                 {
                     Transform overlayTrans = inventorySlots[i].transform.Find("ItemImage");
-                    Debug.Log("looking for overlayTrans");
 
                     if (overlayTrans != null)
                     {
-                        Debug.Log("FOUND for overlayTrans");
-
                         Image overlayImage = overlayTrans.GetComponent<Image>();
 
                         // Debug the sprite being assigned

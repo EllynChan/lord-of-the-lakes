@@ -17,20 +17,11 @@ public class FishingMinigameChase_Collision : MonoBehaviour
     private void Awake()
     {
         minigameController = player.FishGameState;
-        if (player == null)
-        {
-            Debug.LogError("player is null");
-        }
-        Debug.Log("minigameController: " + minigameController);
-        if (minigameController == null)
-        {
-            Debug.LogError("minigameController is null");
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("OnTriggerEnter2D" + minigameController);
+        Debug.Log("OnTriggerEnter2D");
         if (minigameController.reelingFish)
         {
             if (other.CompareTag("CatchingBar") && !beingCaught)
