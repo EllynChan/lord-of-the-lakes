@@ -473,6 +473,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   collider: {fileID: 0}
   renderer: {fileID: 0}
+  isOnShinySpot: 0
   moveDirection: {x: 0, y: 0}
   moveSpeed: 4
   sprites:
@@ -497,7 +498,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5031118845160974874
 RectTransform:
   m_ObjectHideFlags: 0
